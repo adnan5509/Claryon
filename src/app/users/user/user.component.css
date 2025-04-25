@@ -1,0 +1,45 @@
+div {
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 64, 32, 0.3); /* green-tinted shadow */
+  overflow: hidden;
+  background-color: #123524; /* dark green background */
+  color: #d0f5df; /* minty green text */
+}
+
+a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  background-color: #1e4030; /* rich green base */
+  color: #cde8d5; /* soft green text */
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  width: 100%;
+  min-width: 10rem;
+  text-align: left;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a:hover,
+a:active,
+.selected {
+  background-color: #34a36a; /* vibrant green on hover */
+  color: #ffffff;
+}
+
+img {
+  width: 2rem;
+  object-fit: contain;
+  border-radius: 50%;
+  box-shadow: 0 1px 8px rgba(0, 64, 32, 0.4); /* slightly green-tinted shadow */
+}
+
+span {
+  margin: 0;
+  padding: 0;
+  font-size: 0.8rem;
+  font-weight: normal;
+}

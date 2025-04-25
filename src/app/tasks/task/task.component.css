@@ -1,0 +1,37 @@
+article {
+  padding: 1rem;
+  color: #143423; /* dark green text */
+  background-color: #d6f5e3; /* soft mint background */
+}
+
+h2 {
+  margin: 0;
+}
+
+time {
+  color: #2b5942; /* medium green for timestamp */
+}
+
+.actions {
+  text-align: right;
+  margin: 0;
+}
+
+.actions button {
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background-color: #2d6a4f; /* deep green button */
+  color: #e6fff5;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 64, 32, 0.3);
+  transition: all 0.3s ease;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #40916c;
+  box-shadow: 0 1px 6px rgba(0, 64, 32, 0.3);
+}

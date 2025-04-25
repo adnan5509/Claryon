@@ -1,0 +1,7 @@
+div {
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(0, 64, 32, 0.3); /* subtle greenish shadow */
+  overflow: hidden;
+  background-color: #123524; /* deep green background */
+  color: #d0f5df; /* minty text color for consistency */
+}
