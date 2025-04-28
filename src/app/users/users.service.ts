@@ -9,4 +9,8 @@ export class UsersService {
   get users() {
     return DUMMY_USERS;
   }
+
+  getUser(userId: string) {
+    return this.users.find((user) => user.id === userId);
+  }
 }
