@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
   standalone: true,
   templateUrl: './user-tasks.component.html',
   styleUrl: './user-tasks.component.css',
+  imports: [RouterOutlet, RouterLink]
 })
 export class UserTasksComponent implements OnDestroy {
 
