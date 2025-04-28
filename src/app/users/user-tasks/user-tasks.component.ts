@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { UsersService } from '../users.service';
 
 @Component({
@@ -13,7 +13,7 @@ export class UserTasksComponent {
 
   userId = input.required<string>();
 
-  user = this.userService.getUser(this.userId());
+  userName = computed(() => this.userService.getUser(this.userId())?.name);
 
 
 }
