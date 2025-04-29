@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 
-import { type NewTaskData } from './task/task.model';
+import { Task, type NewTaskData } from './task/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class TasksService {
@@ -38,6 +38,10 @@ export class TasksService {
     if (tasks) {
       this.tasks.set(JSON.parse(tasks));
     }
+  }
+
+  getUserTasks(userId: string): Task[] {
+    return this.allTasks().filter((task) => { return task.userId === userId; })
   }
 
   addTask(taskData: NewTaskData, userId: string) {
