@@ -1,10 +1,9 @@
-import { Component, input, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 
 import { TaskComponent } from './task/task.component';
 import { Task } from './task/task.model';
 import { TasksService } from './tasks.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRouteSnapshot, ResolveFn, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-tasks',
@@ -13,39 +12,24 @@ import { Subscription } from 'rxjs';
   styleUrl: './tasks.component.css',
   imports: [TaskComponent, RouterLink],
 })
-export class TasksComponent implements OnInit, OnDestroy {
-
-  constructor(private tasksService: TasksService, private activatedRoute: ActivatedRoute) { }
-
+export class TasksComponent {
+  userTasks = input.required<Task[]>();
   userId = input.required<string>();
+  order = input.required<string>();
+}
 
-  subscriptions: Subscription[] = [];
-  order: 'asc' | 'desc' = 'desc';
+export const tasksResolver: ResolveFn<Task[]> = (activatedRouteSnapshot: ActivatedRouteSnapshot,) => {
+  const tasksService = inject(TasksService);
+  const order = activatedRouteSnapshot.queryParams['order'];
+  const userId = activatedRouteSnapshot.params['userId'];
 
-  get userTasks(): Task[] {
-    return this.tasksService.getUserTasks(this.userId()).sort((a, b) => {
-      if (this.order === 'asc') {
-        return a.dueDate > b.dueDate ? 1 : -1;
-      } else {
-        return a.dueDate < b.dueDate ? 1 : -1;
-      }
-    });
+  const userTasks = tasksService.getUserTasks(userId);
+
+  if (order && order === 'asc') {
+    userTasks.sort((a, b) => a.dueDate > b.dueDate ? 1 : -1);
+  } else {
+
+    userTasks.sort((a, b) => a.dueDate < b.dueDate ? 1 : -1);
   }
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.activatedRoute.queryParams.subscribe(
-        {
-          next: (param) => {
-            this.order = param['order'];
-          }
-        }
-      )
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
+  return userTasks.length > 0 ? userTasks : [];
 }
