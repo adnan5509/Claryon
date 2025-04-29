@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, inject, input, OnDestroy } from '@angular/core';
 import { UsersService } from '../users.service';
-import { ActivatedRoute, RouterLink, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, RouterLink, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,29 +10,13 @@ import { Subscription } from 'rxjs';
   styleUrl: './user-tasks.component.css',
   imports: [RouterOutlet, RouterLink]
 })
-export class UserTasksComponent implements OnDestroy {
+export class UserTasksComponent {
+  message = input.required<string>();
+  userName = input.required<string>();
+}
 
-  constructor(
-    private userService: UsersService,
-    private activatedRoute: ActivatedRoute
-  ) { }
-
-  userName = '';
-  private routeSub?: Subscription;
-
-  ngOnInit() {
-    this.routeSub = this.activatedRoute.paramMap.subscribe({
-      next: (paramMap) => {
-        const id = paramMap.get('userId');  // <<< use the correct param name from your route
-        if (id) {
-          const user = this.userService.getUser(id);
-          this.userName = user?.name || '';
-        }
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.routeSub?.unsubscribe();
-  }
+export const userNameResolver: ResolveFn<string> = (activatedRouteSnapshot: ActivatedRouteSnapshot) => {
+  const userService = inject(UsersService);
+  const userName = userService.getUser(activatedRouteSnapshot.params['userId'])?.name || '';
+  return userName;
 }
