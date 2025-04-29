@@ -18,6 +18,7 @@ export const userRoutes: Routes = [
     },
     {
         path: 'tasks/new',
-        component: NewTaskComponent
+        component: NewTaskComponent,
+        title: 'Add New Task',
     }
 ]
