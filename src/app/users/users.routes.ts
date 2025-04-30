@@ -2,14 +2,17 @@ import { CanActivateFn, Router, Routes } from "@angular/router";
 import { NewTaskComponent } from "../tasks/new-task/new-task.component";
 import { TasksComponent, tasksResolver } from "../tasks/tasks.component";
 import { inject } from "@angular/core";
+import { UsersService } from "./users.service";
 
 
 const AddNewTaskGaurd: CanActivateFn = (route, segments) => {
     const router = inject(Router);
-    if (route.params['userId'] === 'u1' || route.params['userId'] === 'u2') {
+    const userService = inject(UsersService);
+    const userId = route.params['userId'];
+    if (userService.getUser(userId)?.active) {
         return true;
     }
-    router.navigate(['/goAway']);
+    router.navigate(['/not-a-member']);
     return false;
 }
 export const userRoutes: Routes = [
