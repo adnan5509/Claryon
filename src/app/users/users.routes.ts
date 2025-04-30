@@ -24,7 +24,7 @@ export const userRoutes: Routes = [
     {
         path: 'tasks',
         component: TasksComponent,
-        runGuardsAndResolvers: 'paramsOrQueryParamsChange',
+        runGuardsAndResolvers: 'always',
         resolve: {
             userTasks: tasksResolver
         }
