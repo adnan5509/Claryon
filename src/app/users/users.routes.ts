@@ -1,5 +1,5 @@
 import { CanActivateFn, Router, Routes } from "@angular/router";
-import { NewTaskComponent } from "../tasks/new-task/new-task.component";
+import { canLeaveEditTask, NewTaskComponent } from "../tasks/new-task/new-task.component";
 import { TasksComponent, tasksResolver } from "../tasks/tasks.component";
 import { inject } from "@angular/core";
 import { UsersService } from "./users.service";
@@ -33,6 +33,7 @@ export const userRoutes: Routes = [
         path: 'tasks/new',
         component: NewTaskComponent,
         title: 'Add New Task',
-        canActivate: [AddNewTaskGaurd]
+        canActivate: [AddNewTaskGaurd],
+        canDeactivate: [canLeaveEditTask]
     }
 ]
